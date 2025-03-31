@@ -35,3 +35,10 @@ AND a.process_id = b.process_id
 AND a.activity_type = 'start' 
 AND b.activity_type = 'end'
 GROUP BY a.machine_id;
+
+--577. Employee Bonus
+SELECT name , Bonus.bonus
+FROM Employee
+LEFT JOIN Bonus
+ON Bonus.empId = Employee.empId 
+WHERE Bonus.bonus<1000 OR  Bonus.bonus IS NULL;

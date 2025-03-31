@@ -15,3 +15,7 @@ SELECT DISTINCT author_id AS id
 FROM Views
 WHERE author_id = viewer_id
 ORDER BY author_id ASC;
+--1683. Invalid Tweets
+SELECT tweet_id
+FROM Tweets
+WHERE LENGTH(content)>15;

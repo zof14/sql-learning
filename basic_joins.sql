@@ -42,3 +42,11 @@ FROM Employee
 LEFT JOIN Bonus
 ON Bonus.empId = Employee.empId 
 WHERE Bonus.bonus<1000 OR  Bonus.bonus IS NULL;
+ --1280. Students and Examinations
+ SELECT Students.student_id,  Students.student_name,Subjects.subject_name, COUNT(Examinations.subject_name) AS attended_exams
+FROM Students
+CROSS JOIN Subjects
+LEFT JOIN Examinations
+ON Examinations.student_id = Students.student_id AND  Subjects.subject_name = Examinations.subject_name
+GROUP BY Examinations.student_id, Students.student_name, Subjects.subject_name
+ORDER BY student_id, Subjects.subject_name;

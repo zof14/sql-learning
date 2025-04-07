@@ -53,3 +53,25 @@ where (customer_id, order_date) in (
   from Delivery
   group by customer_id
 );
+
+--550. Game Play Analysis IV
+
+SELECT ROUND(COUNT(*) * 1.0 / (SELECT COUNT(DISTINCT player_id) FROM Activity), 2) AS fraction
+FROM 
+(SELECT *
+FROM Activity d1
+WHERE event_date = (
+    SELECT MIN(event_date)
+    FROM Activity d2
+    WHERE d1.player_id = d2.player_id
+) + INTERVAL 1 DAY
+) AS first_log;
+--or
+SELECT 
+  ROUND(COUNT(*) * 1.0 / (SELECT COUNT(DISTINCT player_id) FROM Activity), 2) AS fraction
+FROM Activity d1
+WHERE (player_id, event_date) IN (
+  SELECT player_id, DATE_ADD(MIN(event_date), INTERVAL 1 DAY)
+  FROM Activity
+  GROUP BY player_id
+);

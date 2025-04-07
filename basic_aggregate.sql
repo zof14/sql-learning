@@ -33,3 +33,23 @@ SELECT
 DATE_FORMAT(trans_date,'%Y-%m') AS month, country, COUNT(*) AS trans_count, SUM(state='approved') AS approved_count, SUM(amount) AS trans_total_amount,SUM(CASE WHEN state='approved' THEN amount ELSE 0 END) AS approved_total_amount
 FROM Transactions
 GROUP BY DATE_FORMAT(trans_date,'%Y-%m') , country;
+--1174. Immediate Food Delivery II
+SELECT ROUND(SUM(CASE WHEN customer_pref_delivery_date = order_date THEN 1 ELSE 0 END) *100/COUNT( customer_id),2) AS immediate_percentage
+FROM 
+(SELECT *
+FROM Delivery d1
+WHERE order_date = (
+    SELECT MIN(order_date)
+    FROM Delivery d2
+    WHERE d1.customer_id = d2.customer_id
+)) AS first_order;
+
+--or
+Select 
+    ROUND(SUM(CASE WHEN customer_pref_delivery_date = order_date THEN 1 ELSE 0 END) *100/COUNT( customer_id),2) AS immediate_percentage
+from Delivery
+where (customer_id, order_date) in (
+  Select customer_id, min(order_date) 
+  from Delivery
+  group by customer_id
+);

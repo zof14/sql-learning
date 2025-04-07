@@ -26,3 +26,10 @@ GROUP BY project_id;
 SELECT query_name, ROUND(AVG(rating/position),2) as quality, ROUND(SUM(rating<3)*100/COUNT(query_name),2) as poor_query_percentage
 FROM  Queries
 GROUP BY query_name;
+
+
+--1193. Monthly Transactions I
+SELECT 
+DATE_FORMAT(trans_date,'%Y-%m') AS month, country, COUNT(*) AS trans_count, SUM(state='approved') AS approved_count, SUM(amount) AS trans_total_amount,SUM(CASE WHEN state='approved' THEN amount ELSE 0 END) AS approved_total_amount
+FROM Transactions
+GROUP BY DATE_FORMAT(trans_date,'%Y-%m') , country;

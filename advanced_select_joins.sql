@@ -55,3 +55,14 @@ WHERE (product_id,change_date) IN
 FROM Products 
 WHERE change_date <= "2019-08-16" 
 GROUP BY product_id) ;
+
+--1204
+SELECT person_name
+FROM(
+    SELECT person_name,
+    SUM(weight) OVER (ORDER BY turn) AS total_weight, turn
+    FROM Queue
+) AS boarding
+WHERE total_weight<=1000
+ORDER BY total_weight DESC
+LIMIT 1;

@@ -38,4 +38,12 @@ SELECT user_id, COUNT(follower_id) as followers_count
 FROM Followers
 GROUP BY user_id
 ORDER BY user_id ASC;
-aa
+
+--619. Biggest Single Number
+SELECT MAX(num) AS num
+FROM (
+    SELECT num
+    FROM MyNumbers
+    GROUP BY num
+    HAVING COUNT(*)=1
+) AS one;

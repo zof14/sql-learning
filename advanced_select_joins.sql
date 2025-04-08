@@ -28,3 +28,7 @@ SELECT employee_id, department_id
 FROM Employee
 GROUP BY employee_id, department_id
 HAVING COUNT(*) = 1;
+
+--610. Triangle Judgement
+SELECT x,y,z,(CASE WHEN x+y>z AND x+z>y AND z+y>x THEN 'Yes' ELSE 'No' END) AS triangle
+FROM Triangle;

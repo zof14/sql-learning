@@ -14,3 +14,12 @@ DELETE p1
 FROM Person p1
 JOIN Person p2
 ON p1.id>p2.id AND p1.email=p2.email;
+--176. Second Highest Salary
+SELECT (
+    SELECT MAX(salary)
+    FROM Employee
+    WHERE salary < (
+        SELECT MAX(salary)
+        FROM Employee
+    )
+) AS SecondHighestSalary;

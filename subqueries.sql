@@ -12,3 +12,27 @@ ELSE id
 END AS id, student
 FROM Seat
 ORDER BY id ASC;
+
+--1341. Movie Rating
+
+(SELECT  u.name AS results
+FROM Users u
+JOIN MovieRating m
+ON u.user_id = m.user_id
+GROUP BY u.user_id, u.name
+ORDER BY COUNT(*) DESC, u.name ASC
+ LIMIT 1
+)
+UNION ALL
+
+(SELECT mv.title AS results
+FROM Movies mv
+JOIN MovieRating mr
+ON mv.movie_id = mr.movie_id
+WHERE mr.created_at BETWEEN '2020-02-01' AND '2020-02-29'
+GROUP BY mv.movie_id, mv.title
+ORDER BY AVG(rating) DESC , mv.title ASC
+LIMIT 1
+);
+
+ 

@@ -51,3 +51,20 @@ ON c2.visited_on BETWEEN c1.visited_on - INTERVAL 6 DAY AND c1.visited_on
 GROUP BY c1.visited_on
 HAVING COUNT(*)=7
 ORDER BY c1.visited_on;
+
+--02. Friend Requests II: Who Has the Most Friends
+SELECT A.id, SUM(A.num) AS num
+FROM (
+    SELECT requester_id AS id, COUNT(*) AS num
+    FROM RequestAccepted
+    GROUP BY requester_id
+
+    UNION ALL
+
+    SELECT accepter_id AS id, COUNT(*) AS num
+    FROM RequestAccepted
+    GROUP BY accepter_id
+) AS A
+GROUP BY A.id
+ORDER BY num DESC
+LIMIT 1;

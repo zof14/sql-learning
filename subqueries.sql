@@ -52,7 +52,7 @@ GROUP BY c1.visited_on
 HAVING COUNT(*)=7
 ORDER BY c1.visited_on;
 
---02. Friend Requests II: Who Has the Most Friends
+--602. Friend Requests II: Who Has the Most Friends
 SELECT A.id, SUM(A.num) AS num
 FROM (
     SELECT requester_id AS id, COUNT(*) AS num
